@@ -15,7 +15,7 @@ public class tableau {
         if (tab.length % 2 ==  0){
             mediane = (tab[tab.length / 2] + tab[tab.length / 2 - 1]) / 2.0;
         }else{
-            mediane = tab[tab.lenght / 2];
+            mediane = tab[tab.length / 2];
         }
         System.out.println("La médiane est: " + mediane);
 
