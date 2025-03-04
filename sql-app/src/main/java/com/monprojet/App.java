@@ -16,6 +16,9 @@ public class App
         do {
             System.out.println("Que voulez-vous faire ?");
             System.out.println("1 - Ajouter un utilisateur");
+            System.out.println("2 - Lister les utilisateurs");
+            System.out.println("3 - Supprimer un utilisateur");
+            System.out.println("4 - Modifier un utilisateur");
             System.out.println("0 - quitter");
             choix = sc.nextInt();
 
@@ -23,7 +26,15 @@ public class App
                 case 1:
                     gu.add(connexion, sc);
                     break;
-            
+                case 2:
+                    gu.listUsers(connexion);
+                    break;
+                case 3:
+                    gu.deleteUser(connexion, sc);
+                    break;    
+                case 4:
+                    gu.editUser(connexion, sc);
+                    break;
                 default:
                     System.out.println("L'action demandé n'existe pas !");
                     break;
