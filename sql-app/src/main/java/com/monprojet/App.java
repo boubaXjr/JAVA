@@ -19,6 +19,7 @@ public class App
             System.out.println("2 - Lister les utilisateurs");
             System.out.println("3 - Supprimer un utilisateur");
             System.out.println("4 - Modifier un utilisateur");
+            System.out.println("5 - Rechercher un utilisateur");
             System.out.println("0 - quitter");
             choix = sc.nextInt();
 
@@ -34,6 +35,10 @@ public class App
                     break;    
                 case 4:
                     gu.editUser(connexion, sc);
+                    break;
+                case 5:
+                    sc.nextLine();
+                    gu.searchUser(connexion, sc);
                     break;
                 default:
                     System.out.println("L'action demandé n'existe pas !");

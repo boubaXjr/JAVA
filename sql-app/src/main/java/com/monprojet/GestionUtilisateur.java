@@ -115,5 +115,40 @@ public class GestionUtilisateur
         }
     }
 
+    public void searchUser(Connexion connect, Scanner sc) {
+        System.out.println("Entrez un mot-clé pour la recherche (nom ou email) :");
+        String keyword = sc.nextLine();
+
+        try {
+            // Préparer la requête SQL pour rechercher un utilisateur
+            String sql = "SELECT id, nom, prenom, email FROM utilisateurs WHERE nom LIKE ? OR email LIKE ?";
+            PreparedStatement pstmt = connect.connexion.prepareStatement(sql);
+            pstmt.setString(1, "%" + keyword + "%");
+            pstmt.setString(2, "%" + keyword + "%");
+
+            ResultSet rs = pstmt.executeQuery();
+
+            System.out.println("\nRésultats de la recherche :");
+            boolean found = false;
+            while (rs.next()) {
+                found = true;
+                int id = rs.getInt("id");
+                String nom = rs.getString("nom");
+                String prenom = rs.getString("prenom");
+                String email = rs.getString("email");
+
+                System.out.println("ID: " + id + " | Nom: " + nom + " | Prénom: " + prenom + " | Email: " + email);
+            }
+
+            if (!found) {
+                System.out.println("Aucun utilisateur trouvé.");
+            }
+
+        } catch (SQLException e) {
+            System.err.println("Erreur lors de la recherche : " + e.getMessage());
+        }
+    }
+
+
 
 }
