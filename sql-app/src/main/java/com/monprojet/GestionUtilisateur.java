@@ -6,6 +6,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.sql.PreparedStatement;
+import java.io.FileWriter;
+import java.io.IOException;
 
 public class GestionUtilisateur
 {
@@ -120,7 +122,6 @@ public class GestionUtilisateur
         String keyword = sc.nextLine();
 
         try {
-            // Préparer la requête SQL pour rechercher un utilisateur
             String sql = "SELECT id, nom, prenom, email FROM utilisateurs WHERE nom LIKE ? OR email LIKE ?";
             PreparedStatement pstmt = connect.connexion.prepareStatement(sql);
             pstmt.setString(1, "%" + keyword + "%");
@@ -146,6 +147,35 @@ public class GestionUtilisateur
 
         } catch (SQLException e) {
             System.err.println("Erreur lors de la recherche : " + e.getMessage());
+        }
+    }
+
+
+    public void exportToCSV(Connexion connect) {
+        String fileName = "utilisateurs.csv";
+
+        try (FileWriter writer = new FileWriter(fileName)) {
+            writer.append("ID,Nom,Prénom,Email\n");
+
+            String sql = "SELECT id, nom, prenom, email FROM utilisateurs";
+            PreparedStatement pstmt = connect.connexion.prepareStatement(sql);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String nom = rs.getString("nom");
+                String prenom = rs.getString("prenom");
+                String email = rs.getString("email");
+
+                writer.append(id + "," + nom + "," + prenom + "," + email + "\n");
+            }
+
+            System.out.println("Exportation réussie, Fichier créé : " + fileName);
+
+        } catch (SQLException e) {
+            System.err.println("Erreur: " + e.getMessage());
+        } catch (IOException e) {
+            System.err.println("Erreurs: " + e.getMessage());
         }
     }
 

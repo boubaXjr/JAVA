@@ -26,6 +26,7 @@ public class App
             switch (choix) {
                 case 1:
                     gu.add(connexion, sc);
+                    gu.exportToCSV(connexion);
                     break;
                 case 2:
                     gu.listUsers(connexion);
