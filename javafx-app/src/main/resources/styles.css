@@ -1,0 +1,10 @@
+.root{
+    -fx-font-family: "Arial";
+    -fx-background-image: url("naruto.jpg");
+    -fx-background-size: .jpg;
+    -fx-background-position: center;
+}
+
+.label{
+    -fx-text-fill: #FF0000;
+}
